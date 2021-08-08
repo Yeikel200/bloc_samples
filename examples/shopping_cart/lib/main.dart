@@ -1,3 +1,4 @@
+import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 
 import 'package:search_filter_repository/search_filter_repository.dart';
@@ -15,6 +16,8 @@ Future<void> main() async {
       db: await ShoppingCartDB.initDB(),
     ),
   );
+
+  Bloc.observer = AppBlocObserver();
 
   runApp(
     App(

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopping_cart/home/home.dart';
 import 'package:search_filter_repository/search_filter_repository.dart';
 import 'package:shopping_cart_repository/shopping_cart_repository.dart';
+export 'app_bloc_observer.dart';
 
 class App extends StatelessWidget {
   const App({

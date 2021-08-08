@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopping_cart/products/products.dart';
+import 'package:shopping_cart/shared/shared.dart';
 import 'package:shopping_cart_repository/shopping_cart_repository.dart';
 
 ///ProductsPage
@@ -28,6 +29,12 @@ class ProductsView extends StatelessWidget {
       builder: (context, state) {
         return state.maybeWhen(
           orElse: () => const SizedBox.shrink(),
+          loading: () => const Center(child: CircularProgressIndicator()),
+          error: () => CustomErrorWidget(
+            onPressed: () {
+              context.read<ProductsBloc>().add(const ProductsRetrieved());
+            },
+          ),
           success: (products) => ProductsList(products: products),
         );
       },
