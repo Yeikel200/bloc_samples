@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs
-import 'package:equatable/equatable.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:json_annotation/json_annotation.dart';
+part 'order_item.freezed.dart';
 part 'order_item.g.dart';
 
 class OrderItemFields {
@@ -17,36 +18,15 @@ class OrderItemFields {
   static const String quantity = 'quantity';
 }
 
-@JsonSerializable()
-class OrderItem extends Equatable {
-  const OrderItem({
-    required this.productId,
-    required this.orderId,
-    required this.unitPrice,
-    required this.quantity,
-  });
+@freezed
+class OrderItem with _$OrderItem {
+  factory OrderItem({
+    @JsonKey(name: OrderItemFields.productId) required int productId,
+    @JsonKey(name: OrderItemFields.orderId) required int orderId,
+    @JsonKey(name: OrderItemFields.unitPrice) required double unitPrice,
+    @JsonKey(name: OrderItemFields.quantity) required int quantity,
+  }) = FreezedOrderItem;
 
   factory OrderItem.fromJson(Map<String, dynamic> json) =>
       _$OrderItemFromJson(json);
-  Map<String, dynamic> toJson() => _$OrderItemToJson(this);
-
-  @JsonKey(name: OrderItemFields.productId)
-  final int productId;
-
-  @JsonKey(name: OrderItemFields.orderId)
-  final int orderId;
-
-  @JsonKey(name: OrderItemFields.unitPrice)
-  final double unitPrice;
-
-  @JsonKey(name: OrderItemFields.quantity)
-  final int quantity;
-
-  @override
-  List<Object?> get props => [
-        productId,
-        orderId,
-        unitPrice,
-        quantity,
-      ];
 }

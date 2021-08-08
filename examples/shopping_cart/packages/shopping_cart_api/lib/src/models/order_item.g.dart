@@ -6,8 +6,8 @@ part of 'order_item.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-OrderItem _$OrderItemFromJson(Map<String, dynamic> json) {
-  return OrderItem(
+_$FreezedOrderItem _$_$FreezedOrderItemFromJson(Map<String, dynamic> json) {
+  return _$FreezedOrderItem(
     productId: json['productId'] as int,
     orderId: json['orderId'] as int,
     unitPrice: (json['unitPrice'] as num).toDouble(),
@@ -15,7 +15,8 @@ OrderItem _$OrderItemFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$OrderItemToJson(OrderItem instance) => <String, dynamic>{
+Map<String, dynamic> _$_$FreezedOrderItemToJson(_$FreezedOrderItem instance) =>
+    <String, dynamic>{
       'productId': instance.productId,
       'orderId': instance.orderId,
       'unitPrice': instance.unitPrice,

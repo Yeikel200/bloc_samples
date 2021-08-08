@@ -7,55 +7,52 @@ import 'package:sqflite/sqflite.dart';
 /// {@endtemplate}
 class ShoppingCartDB {
   /// Return [Database] for the shopping cart example
-  static Future<Database> initDB(String filePath) async {
+  static Future<Database> initDB() async {
     final dbPath = await getDatabasesPath();
-    final path = join(dbPath, filePath);
+    final path = join(dbPath, 'shopping_cart1.db');
 
     return openDatabase(path, version: 1, onCreate: _createDB);
   }
 
   static Future<void> _createDB(Database db, int version) async {
-    await db.execute('''
-  CREATE TABLE `${ProductFields.tableName}`
-  (
-  `${ProductFields.id}`        int NOT NULL AUTO_INCREMENT ,
-  `${ProductFields.name}`      varchar(50) NOT NULL ,
-  `${ProductFields.unitPrice}` decimal(12,2) NOT NULL ,
+    final createProductTable = '''
+      CREATE TABLE IF NOT EXISTS ${ProductFields.tableName}
+      (
+      ${ProductFields.id}        INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT ,
+      ${ProductFields.name}      TEXT NOT NULL ,
+      ${ProductFields.unitPrice} REAL NOT NULL ,
 
-  PRIMARY KEY (`${ProductFields.id}`),
-  UNIQUE KEY `AK1_Product_SupplierId_ProductName` (`${ProductFields.name}`)
-  ) AUTO_INCREMENT=1 COMMENT='Basic information 
-  about Product';
+      UNIQUE(${ProductFields.id},${ProductFields.name})
+      );
+    ''';
+    final createOrderTable = '''
+      CREATE TABLE IF NOT EXISTS ${OrderFields.tableName}
+      (
+      ${OrderFields.id}        INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT ,
+      ${OrderFields.millisSinceEpoch}   INTEGER NOT NULL ,
+      ${OrderFields.totalAmount} REAL NOT NULL
+      );
+    ''';
 
+    final createOrderItemTable = '''
+      CREATE TABLE IF NOT EXISTS ${OrderItemFields.tableName}
+      (
+      ${OrderItemFields.orderId}        INTEGER NOT NULL ,
+      ${OrderItemFields.productId}        INTEGER NOT NULL ,
+      ${OrderItemFields.unitPrice}    REAL NOT NULL ,
+      ${OrderItemFields.quantity}         INTEGER NOT NULL ,
+      FOREIGN KEY (${OrderItemFields.orderId})
+          REFERENCES ${OrderFields.tableName} (${OrderFields.id})
+            ON UPDATE NO ACTION,
+      FOREIGN KEY (${OrderItemFields.productId})
+          REFERENCES ${ProductFields.tableName} (${ProductFields.id})
+            ON UPDATE NO ACTION
+      );
+    ''';
 
-
-  CREATE TABLE `${OrderFields.tableName}`
-  (
-  `${OrderFields.id}`          int NOT NULL AUTO_INCREMENT ,
-  `${OrderFields.date}`        datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ,
-  `${OrderFields.totalAmount}` decimal(12,2) NOT NULL ,
-
-  PRIMARY KEY (`${OrderFields.id}`)
-  ) AUTO_INCREMENT=1 COMMENT='Order information
-  like Date, Amount';
-
-
-
-  CREATE TABLE `${OrderItemFields.tableName}`
-  (
-  `${OrderItemFields.productId}` int NOT NULL ,
-  `${OrderItemFields.orderId}`   int NOT NULL ,
-  `${OrderItemFields.unitPrice}` decimal(12,2) NOT NULL ,
-  `${OrderItemFields.quantity}`  int NOT NULL ,
-
-  PRIMARY KEY (`${OrderItemFields.productId}`, `${OrderItemFields.orderId}`),
-  KEY `FK_OrderItem_OrderId_Order` (`orderId`),
-  CONSTRAINT `FK_OrderItem_OrderId_Order` FOREIGN KEY `FK_OrderItem_OrderId_Order` (`orderId`) REFERENCES `Order` (`orderId`),
-  KEY `FK_OrderItem_ProductId_Product` (`productId`),
-  CONSTRAINT `FK_OrderItem_ProductId_Product` FOREIGN KEY `FK_OrderItem_ProductId_Product` (`productId`) REFERENCES `Product` (`productId`)
-  ) COMMENT='Information about
-  like Price, Quantity';
-''');
+    await db.execute(createProductTable);
+    await db.execute(createOrderTable);
+    await db.execute(createOrderItemTable);
   }
 
   // Future close() async {
