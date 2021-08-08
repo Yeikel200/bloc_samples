@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:shopping_cart/orders/orders.dart';
 import 'package:shopping_cart/products/view/products_page.dart';
 
 ///HomePage
@@ -26,9 +27,7 @@ class HomeView extends HookWidget {
 
   static const List<Widget> _widgetOptions = <Widget>[
     ProductsPage(),
-    Text(
-      'Index 1: Business',
-    ),
+    OrdersPage(),
   ];
 
   @override
