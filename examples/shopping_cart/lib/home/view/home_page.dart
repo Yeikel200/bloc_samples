@@ -36,7 +36,7 @@ class HomeView extends HookWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('BottomNavigationBar Sample'),
+        title: const Text('NoScopeDevs Shop'),
       ),
       body: Center(
         child: _widgetOptions.elementAt(selectedIndex.value),
@@ -45,11 +45,11 @@ class HomeView extends HookWidget {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.local_grocery_store),
-            label: 'Home',
+            label: 'Products',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.shopping_bag_outlined),
-            label: 'Business',
+            label: 'Orders',
           ),
         ],
         currentIndex: selectedIndex.value,
