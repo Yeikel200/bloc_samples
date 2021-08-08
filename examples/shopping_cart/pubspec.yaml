@@ -15,16 +15,20 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^7.1.0
+  flutter_hooks: ^0.18.0
+  freezed_annotation: ^0.14.2
   hydrated_bloc: ^7.0.1
   search_filter_repository:
     path: packages/search_filter_repository
-  shopping_cart_api:
-    path: packages/shopping_cart_api
+  shopping_cart_repository:
+    path: packages/shopping_cart_repository
 
 dev_dependencies:
   bloc_test: ^8.1.0
+  build_runner: ^2.1.0
   flutter_test:
     sdk: flutter
+  freezed: ^0.14.2
   mocktail: ^0.1.4
   very_good_analysis: ^2.3.0
 
