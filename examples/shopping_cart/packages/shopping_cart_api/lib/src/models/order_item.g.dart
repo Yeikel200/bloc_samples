@@ -8,8 +8,8 @@ part of 'order_item.dart';
 
 _$FreezedOrderItem _$_$FreezedOrderItemFromJson(Map<String, dynamic> json) {
   return _$FreezedOrderItem(
-    productId: json['productId'] as int,
-    orderId: json['orderId'] as int,
+    productId: json['productId'] as int?,
+    orderId: json['orderId'] as int?,
     unitPrice: (json['unitPrice'] as num).toDouble(),
     quantity: json['quantity'] as int,
   );
