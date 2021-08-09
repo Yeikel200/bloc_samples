@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shopping_cart/cart/cart.dart';
 import 'package:shopping_cart/products/products.dart';
 import 'package:shopping_cart/shared/shared.dart';
 import 'package:shopping_cart_repository/shopping_cart_repository.dart';
@@ -56,11 +57,23 @@ class ProductsList extends StatelessWidget {
       itemBuilder: (context, index) {
         final product = products[index];
 
-        return Card(
-          child: ListTile(
-            title: Text(product.name),
-            trailing: Text(product.unitPrice.toStringAsFixed(2)),
-          ),
+        return BlocBuilder<CartBloc, CartState>(
+          builder: (context, state) {
+            final isInCart = state.orderItems
+                .where((e) => e.productId == product.id)
+                .toList()
+                .isNotEmpty;
+            return Card(
+              color: isInCart ? Colors.green : null,
+              child: ListTile(
+                onTap: () {
+                  context.read<CartBloc>().add(CartProductAdded(product));
+                },
+                title: Text(product.name),
+                trailing: Text(product.unitPrice.toStringAsFixed(2)),
+              ),
+            );
+          },
         );
       },
       itemCount: products.length,

@@ -24,15 +24,27 @@ class CartBloc extends Bloc<CartEvent, CartState> {
   }
 
   CartState _mapCartProductAddedToState(CartProductAdded event) {
+    final isNotInList = state.orderItems
+        .where(
+          (e) => e.productId == event.product.id,
+        )
+        .toList()
+        .isEmpty;
+
     return state.copyWith(
-      orderItems: [
-        ...state.orderItems,
-        OrderItem(
-          productId: event.product.id!,
-          unitPrice: event.product.unitPrice,
-          quantity: 1,
-        ),
-      ],
+      orderItems: isNotInList
+          ? [
+              ...state.orderItems,
+              OrderItem(
+                productId: event.product.id!,
+                unitPrice: event.product.unitPrice,
+                quantity: 1,
+              ),
+            ]
+          : [
+              for (final item in state.orderItems)
+                if (item.productId != event.product.id) item
+            ],
     );
   }
 
