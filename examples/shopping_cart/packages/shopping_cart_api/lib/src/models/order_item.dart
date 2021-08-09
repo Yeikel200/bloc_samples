@@ -21,8 +21,8 @@ class OrderItemFields {
 @freezed
 class OrderItem with _$OrderItem {
   factory OrderItem({
-    @JsonKey(name: OrderItemFields.productId) required int? productId,
-    @JsonKey(name: OrderItemFields.orderId) required int? orderId,
+    @JsonKey(name: OrderItemFields.orderId) int? orderId,
+    @JsonKey(name: OrderItemFields.productId) required int productId,
     @JsonKey(name: OrderItemFields.unitPrice) required double unitPrice,
     @JsonKey(name: OrderItemFields.quantity) required int quantity,
   }) = FreezedOrderItem;

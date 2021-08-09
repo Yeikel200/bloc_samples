@@ -21,13 +21,13 @@ class _$OrderItemTearOff {
   const _$OrderItemTearOff();
 
   FreezedOrderItem call(
-      {@JsonKey(name: OrderItemFields.productId) required int? productId,
-      @JsonKey(name: OrderItemFields.orderId) required int? orderId,
+      {@JsonKey(name: OrderItemFields.orderId) int? orderId,
+      @JsonKey(name: OrderItemFields.productId) required int productId,
       @JsonKey(name: OrderItemFields.unitPrice) required double unitPrice,
       @JsonKey(name: OrderItemFields.quantity) required int quantity}) {
     return FreezedOrderItem(
-      productId: productId,
       orderId: orderId,
+      productId: productId,
       unitPrice: unitPrice,
       quantity: quantity,
     );
@@ -43,10 +43,10 @@ const $OrderItem = _$OrderItemTearOff();
 
 /// @nodoc
 mixin _$OrderItem {
-  @JsonKey(name: OrderItemFields.productId)
-  int? get productId => throw _privateConstructorUsedError;
   @JsonKey(name: OrderItemFields.orderId)
   int? get orderId => throw _privateConstructorUsedError;
+  @JsonKey(name: OrderItemFields.productId)
+  int get productId => throw _privateConstructorUsedError;
   @JsonKey(name: OrderItemFields.unitPrice)
   double get unitPrice => throw _privateConstructorUsedError;
   @JsonKey(name: OrderItemFields.quantity)
@@ -63,8 +63,8 @@ abstract class $OrderItemCopyWith<$Res> {
   factory $OrderItemCopyWith(OrderItem value, $Res Function(OrderItem) then) =
       _$OrderItemCopyWithImpl<$Res>;
   $Res call(
-      {@JsonKey(name: OrderItemFields.productId) int? productId,
-      @JsonKey(name: OrderItemFields.orderId) int? orderId,
+      {@JsonKey(name: OrderItemFields.orderId) int? orderId,
+      @JsonKey(name: OrderItemFields.productId) int productId,
       @JsonKey(name: OrderItemFields.unitPrice) double unitPrice,
       @JsonKey(name: OrderItemFields.quantity) int quantity});
 }
@@ -79,20 +79,20 @@ class _$OrderItemCopyWithImpl<$Res> implements $OrderItemCopyWith<$Res> {
 
   @override
   $Res call({
-    Object? productId = freezed,
     Object? orderId = freezed,
+    Object? productId = freezed,
     Object? unitPrice = freezed,
     Object? quantity = freezed,
   }) {
     return _then(_value.copyWith(
-      productId: productId == freezed
-          ? _value.productId
-          : productId // ignore: cast_nullable_to_non_nullable
-              as int?,
       orderId: orderId == freezed
           ? _value.orderId
           : orderId // ignore: cast_nullable_to_non_nullable
               as int?,
+      productId: productId == freezed
+          ? _value.productId
+          : productId // ignore: cast_nullable_to_non_nullable
+              as int,
       unitPrice: unitPrice == freezed
           ? _value.unitPrice
           : unitPrice // ignore: cast_nullable_to_non_nullable
@@ -113,8 +113,8 @@ abstract class $FreezedOrderItemCopyWith<$Res>
       _$FreezedOrderItemCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@JsonKey(name: OrderItemFields.productId) int? productId,
-      @JsonKey(name: OrderItemFields.orderId) int? orderId,
+      {@JsonKey(name: OrderItemFields.orderId) int? orderId,
+      @JsonKey(name: OrderItemFields.productId) int productId,
       @JsonKey(name: OrderItemFields.unitPrice) double unitPrice,
       @JsonKey(name: OrderItemFields.quantity) int quantity});
 }
@@ -131,20 +131,20 @@ class _$FreezedOrderItemCopyWithImpl<$Res> extends _$OrderItemCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? productId = freezed,
     Object? orderId = freezed,
+    Object? productId = freezed,
     Object? unitPrice = freezed,
     Object? quantity = freezed,
   }) {
     return _then(FreezedOrderItem(
-      productId: productId == freezed
-          ? _value.productId
-          : productId // ignore: cast_nullable_to_non_nullable
-              as int?,
       orderId: orderId == freezed
           ? _value.orderId
           : orderId // ignore: cast_nullable_to_non_nullable
               as int?,
+      productId: productId == freezed
+          ? _value.productId
+          : productId // ignore: cast_nullable_to_non_nullable
+              as int,
       unitPrice: unitPrice == freezed
           ? _value.unitPrice
           : unitPrice // ignore: cast_nullable_to_non_nullable
@@ -161,8 +161,8 @@ class _$FreezedOrderItemCopyWithImpl<$Res> extends _$OrderItemCopyWithImpl<$Res>
 @JsonSerializable()
 class _$FreezedOrderItem implements FreezedOrderItem {
   _$FreezedOrderItem(
-      {@JsonKey(name: OrderItemFields.productId) required this.productId,
-      @JsonKey(name: OrderItemFields.orderId) required this.orderId,
+      {@JsonKey(name: OrderItemFields.orderId) this.orderId,
+      @JsonKey(name: OrderItemFields.productId) required this.productId,
       @JsonKey(name: OrderItemFields.unitPrice) required this.unitPrice,
       @JsonKey(name: OrderItemFields.quantity) required this.quantity});
 
@@ -170,11 +170,11 @@ class _$FreezedOrderItem implements FreezedOrderItem {
       _$_$FreezedOrderItemFromJson(json);
 
   @override
-  @JsonKey(name: OrderItemFields.productId)
-  final int? productId;
-  @override
   @JsonKey(name: OrderItemFields.orderId)
   final int? orderId;
+  @override
+  @JsonKey(name: OrderItemFields.productId)
+  final int productId;
   @override
   @JsonKey(name: OrderItemFields.unitPrice)
   final double unitPrice;
@@ -184,19 +184,19 @@ class _$FreezedOrderItem implements FreezedOrderItem {
 
   @override
   String toString() {
-    return 'OrderItem(productId: $productId, orderId: $orderId, unitPrice: $unitPrice, quantity: $quantity)';
+    return 'OrderItem(orderId: $orderId, productId: $productId, unitPrice: $unitPrice, quantity: $quantity)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is FreezedOrderItem &&
-            (identical(other.productId, productId) ||
-                const DeepCollectionEquality()
-                    .equals(other.productId, productId)) &&
             (identical(other.orderId, orderId) ||
                 const DeepCollectionEquality()
                     .equals(other.orderId, orderId)) &&
+            (identical(other.productId, productId) ||
+                const DeepCollectionEquality()
+                    .equals(other.productId, productId)) &&
             (identical(other.unitPrice, unitPrice) ||
                 const DeepCollectionEquality()
                     .equals(other.unitPrice, unitPrice)) &&
@@ -208,8 +208,8 @@ class _$FreezedOrderItem implements FreezedOrderItem {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(productId) ^
       const DeepCollectionEquality().hash(orderId) ^
+      const DeepCollectionEquality().hash(productId) ^
       const DeepCollectionEquality().hash(unitPrice) ^
       const DeepCollectionEquality().hash(quantity);
 
@@ -226,8 +226,8 @@ class _$FreezedOrderItem implements FreezedOrderItem {
 
 abstract class FreezedOrderItem implements OrderItem {
   factory FreezedOrderItem(
-          {@JsonKey(name: OrderItemFields.productId) required int? productId,
-          @JsonKey(name: OrderItemFields.orderId) required int? orderId,
+          {@JsonKey(name: OrderItemFields.orderId) int? orderId,
+          @JsonKey(name: OrderItemFields.productId) required int productId,
           @JsonKey(name: OrderItemFields.unitPrice) required double unitPrice,
           @JsonKey(name: OrderItemFields.quantity) required int quantity}) =
       _$FreezedOrderItem;
@@ -236,11 +236,11 @@ abstract class FreezedOrderItem implements OrderItem {
       _$FreezedOrderItem.fromJson;
 
   @override
-  @JsonKey(name: OrderItemFields.productId)
-  int? get productId => throw _privateConstructorUsedError;
-  @override
   @JsonKey(name: OrderItemFields.orderId)
   int? get orderId => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: OrderItemFields.productId)
+  int get productId => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: OrderItemFields.unitPrice)
   double get unitPrice => throw _privateConstructorUsedError;

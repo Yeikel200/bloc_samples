@@ -8,8 +8,8 @@ part of 'order_item.dart';
 
 _$FreezedOrderItem _$_$FreezedOrderItemFromJson(Map<String, dynamic> json) {
   return _$FreezedOrderItem(
-    productId: json['productId'] as int?,
     orderId: json['orderId'] as int?,
+    productId: json['productId'] as int,
     unitPrice: (json['unitPrice'] as num).toDouble(),
     quantity: json['quantity'] as int,
   );
@@ -17,8 +17,8 @@ _$FreezedOrderItem _$_$FreezedOrderItemFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$_$FreezedOrderItemToJson(_$FreezedOrderItem instance) =>
     <String, dynamic>{
-      'productId': instance.productId,
       'orderId': instance.orderId,
+      'productId': instance.productId,
       'unitPrice': instance.unitPrice,
       'quantity': instance.quantity,
     };
