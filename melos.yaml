@@ -30,7 +30,7 @@ scripts:
     description: Merge all coverage data (Linux)
 
   cov:merge:m:
-    run: rm -dfr coverage/lcov.info && melos exec -- sh MELOS_ROOT_PATH/merge-coverage.sh
+    run: rm -dfr coverage/lcov.info && melos exec -- sh MELOS_ROOT_PATH/merge-coverage-mac.sh
     description: Merge all coverage data (macOS)
 
   cov:merge:w:
@@ -39,7 +39,15 @@ scripts:
 
   # Local usage
 
-  cov:wipe:
+  cov:wipe:m:
+    run: lcov --remove coverage/lcov.info '*.g.dart' '*.freezed.dart' '*gr.dart' -o coverage/lcov.info
+    description: Remove coverage data about generated Dart files in Mac Os
+  
+  cov:wipe:l:
+    run: lcov --remove coverage/lcov.info '*.g.dart' '*.freezed.dart' '*gr.dart' -o coverage/lcov.info
+    description: Remove coverage data about generated Dart files in Linux
+
+  cov:wipe:w:
     # To use this script, you need to:
     #  1. Install the remove_from_coverage package (https://pub.dev/packages/remove_from_coverage).
     run: remove_from_coverage -f coverage/lcov.info -r "\.freezed\.dart$","\.g\.dart$","\.gr\.dart$"
@@ -60,16 +68,20 @@ scripts:
     run: perl %LCOV_TOOLS_PATH%\genhtml -o coverage\html coverage\lcov.info && start coverage\html\index.html
     description: Generate and preview the global coverage report (Windows)
 
+  wf:github:
+    run: melos run cov:gen && melos run cov:merge:l && melos run cov:wipe:l
+    description: Run full workflow for CICD github
+
   wf:l:
-    run: melos run cov:gen && melos run cov:merge:l && melos run cov:wipe && melos run cov:rep:l
+    run: melos run cov:gen && melos run cov:merge:l && melos run cov:wipe:l && melos run cov:rep:l
     description: Run full workflow (Linux)
 
   wf:m:
-    run: melos run cov:gen && melos run cov:merge:m && melos run cov:wipe && melos run cov:rep:m
+    run: melos run cov:gen && melos run cov:merge:m && melos run cov:wipe:m && melos run cov:rep:m
     description: Run full workflow (macOS)
 
   wf:w:
-    run: melos run cov:gen && melos run cov:merge:w && melos run cov:wipe && melos run cov:rep:w
+    run: melos run cov:gen && melos run cov:merge:w && melos run cov:wipe:w && melos run cov:rep:w
     description: Run full workflow (Windows)
 
 environment:

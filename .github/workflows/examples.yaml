@@ -17,7 +17,9 @@ jobs:
       - name: Initialize melos
         run: melos bs
       - name: Run test
-        run: melos run test:all
+        run: melos run wf:github
+      - name: Upload coverage to codecov
+        run: curl -s https://codecov.io/bash | bash
   build:
     needs: [examples]
     runs-on: ubuntu-latest
