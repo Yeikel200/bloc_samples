@@ -16,7 +16,7 @@ jobs:
       - name: Initialize melos
         run: melos bs
       - name: Run test
-        run: melos run test
+        run: melos run melos run cov:gen
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
         with:
